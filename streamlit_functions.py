@@ -2,12 +2,9 @@ import pandas as pd
 import streamlit as st
 
 def get_navigation():
-    inicio = st.Page("streamlit_app.py", title="Sinopsis", icon="🔥", default=True)
-    analisis_general = st.Page("pages/analisis_general.py", title="Plano General", icon="🔥", default=False)
+    inicio = st.Page("streamlit_app.py", title="Sinopsis", icon="🎬", default=True)
+    analisis_general = st.Page("pages/analisis_general.py", title="Plano General", icon="🎥", default=False)
     analisis_pelicula = st.Page("pages/analisis_pelicula.py", title="Primer Plano", icon="🍿", default=False)
-    # ruben = st.Page("pages/api.py", title="Ruben", icon="🔥", default=False)
-    # analisis = st.Page("pages/1_Analisis de Guion.py", title="Analisis", icon="🔥", default=False)
-    # general = st.Page("pages/General.py", title="General", icon="🔥", default=False)
     
     
     lista_paginas = [inicio, analisis_general, analisis_pelicula]
