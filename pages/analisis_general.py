@@ -47,7 +47,7 @@ for item in movies_df['Genre']:
 selected_genres = st.multiselect(label= "Selecciona uno o más géneros:", options = genres, default = genres)
 
 if len(selected_genres) == 0:
-    st.error("Por favor, seleccione por lo menos un género", icon="🚨")
+    st.error("Por favor, selecciona al menos un género.", icon="🚨")
 else:
     # Filtrado del dataframe con los géneros seleccionados
     index_set = set()
@@ -121,7 +121,7 @@ else:
 
         ############## IMPRIMIR LOS GRÁFICOS Y LAS 2 COLUMNAS ##################
 
-        st.subheader('Solo 1 de cada 4 personajes es mujer')
+        st.subheader('De media, solamente 1 de cada 4 personajes es mujer')
         st.markdown("""Analizamos la proporción de personajes masculinos y femeninos en una amplia gama de películas, 
                     cubriendo diferentes géneros y épocas. Este análisis nos permite identificar patrones 
                     y tendencias en la representación de sexo a lo largo del tiempo. Exploramos cómo varía la representación 
@@ -171,10 +171,13 @@ else:
         st.subheader("Análisis de la polaridad vs subjetividad")
 
         st.write("""Los gráficos a continuación nos ayuda a comprender cómo se expresan los 
-                 personajes masculinos y femeninos en términos de emociones y opiniones. La 
-                 polaridad mide el tono emocional del texto, desde negativo a positivo. Una 
+                 personajes masculinos y femeninos en términos de emociones y opiniones. """)
+        
+        st.write("""La polaridad mide el tono emocional del texto, desde negativo a positivo. Una 
                  polaridad alta indica un tono más positivo, mientras que una polaridad baja 
-                 sugiere un tono más negativo. La subjetividad refleja el grado en que el texto 
+                 sugiere un tono más negativo.""")
+
+        st.write("""La subjetividad refleja el grado en que el texto 
                  es personal y subjetivo, en lugar de objetivo y basado en hechos. Un valor 
                  alto de subjetividad indica que el texto está cargado de opiniones personales.""")
 
@@ -194,6 +197,9 @@ else:
 
         st.plotly_chart(fig_scatter1)
         
+        st.write("""En general, podemos observar que los diálogos de las mujeres son más positivos y emocionales,
+                 mientras que el de los hombres tiene a ser más neutro. """)
+
         # Bubble Chart sentimiento todas las películas(femenino)
         fig_scatter2 = px.scatter(data_frame = filtered_movies_years,
                                 x          = "Female Polarity",
