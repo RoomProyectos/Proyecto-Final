@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body p{
+    font-family: "Open Sans", sans-serif;    
+}
+
+.block-container{        
+    max-width:70%;
+    padding: 1rem 1rem 10rem;    
+}
+
+/* Estilo del encabezado */
+.stApp header {
+    display:none;    
+}
+            
+.Total {
+    text-align:center;
+    color:lightgray;
+    transition: all .2s ease-in-out;    
+}
+
+.Total:hover{
+    color:#008000;
+    transform: scale(1.1);
+}
+
+.metric-label{
+    font-size: 1.5em;
+    color:rgba(0, 0, 0, 0.75);
+    text-align: left;    
+    line-height: 0.5;
+    padding: 0;
+}
+
+.metric-value{
+    font-size: 3em;
+    font-weight: bolder;
+    text-align: left;
+    line-height: 0;
+}
+
+.metric-label-sm{
+    color:unset;
+    font-size: 80%;
+    text-align: left;
+    line-height: 1;
+    margin-top:2em;
+}
+
+.metric-value-sm {
+    color:unset;
+    /* font-size: 10%; */
+    text-align: left;
+    /* line-height: ; */
+}
