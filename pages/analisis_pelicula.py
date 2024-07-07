@@ -40,7 +40,7 @@ filtered_data = data[data["Movie"] == selected_movie]
 index_filtered_dialogues = data_dialogues[data_dialogues["Movie"] == selected_movie].index[0]
 filtered_dialogues = data_dialogues[data_dialogues["Movie"] == selected_movie].loc[index_filtered_dialogues,"Merged Dialogues"]
 
-############## IMPRIMIR LOS GRÁFICOS Y LAS 2 COLUMNAS ##################
+############## GRÁFICOS Y COLUMNAS ##################
 st.subheader('Un dato vale más que mil palabras')
 
 # Mostrar estadísticas en dos columnas
@@ -91,9 +91,6 @@ filtered_dialogues['Word Count'] = filtered_dialogues['Lines'].apply(lambda x: l
 filtered_dialogues["Sex"] = filtered_dialogues["Sex"].replace(dict_sex)
 main_characters = filtered_dialogues.sort_values("Word Count", ascending=False).head(10)
 
-# main_characters["Sex"] = main_characters["Sex"].replace(dict_sex)
-
-# st.subheader(f"{}")
 st.subheader(f""" Quién se come el pastel en {selected_movie}""")
 
 st.write(""" Al seleccionar los diez personajes con más diálogos en cada película, los hombres, siguiendo la tónica general, suelen dominar la lista. 
@@ -112,7 +109,7 @@ fig_main_characters.update_layout(
 st.plotly_chart(fig_main_characters)
 
 
-################# BUBBLE CHARTS ####################          ##################################################################################
+################# BUBBLE CHARTS ####################
        
 # Bubble Chart - Sentimiento por personaje (segregado por sexo)
 fig_sentiment_scatter_by_sex = px.scatter(data_frame = filtered_dialogues,
@@ -123,38 +120,30 @@ fig_sentiment_scatter_by_sex = px.scatter(data_frame = filtered_dialogues,
                         color_discrete_map = color_discrete_map,
                         size       = "Word Count",
                         title      = "Polaridad vs subjetividad media por personaje (segregado por sexo)")
+
 fig_sentiment_scatter_by_sex.update_layout(
     xaxis_title='Polaridad',
-    yaxis_title='Subjetividad'
+    yaxis_title='Subjetividad',
+    height=600
 )
-fig_sentiment_scatter_by_sex.update_layout(
-    
-    height=600  # Altura del gráfico
-)
+
+fig_sentiment_scatter_by_sex.update_traces(marker=dict(line=dict(width=0.7, color='black')))
 
 st.plotly_chart(fig_sentiment_scatter_by_sex)
-            # Cambiar las etiquetas de 'Male' y 'Female' ????(si da tiempo)?????????????????????????????????????????????????????????????????????????????????????????????????
-
 
 # Bubble Chart - Sentimiento por personaje 
 fig_sentiment_scatter = px.scatter(data_frame = filtered_dialogues,
                         x            = "Polarity",
                         y            = "Subjectivity",
                         color        = "Character",
-                        hover_name   = "Character",                   
-                        # color_discrete_map = {"Male" : "#E7E6E6", "Female" : "#FFC000"},
+                        hover_name   = "Character",
                         size       = "Word Count",
                         title      = "Polaridad vs subjetividad media por personaje")
 
 fig_sentiment_scatter.update_layout(
     xaxis_title='Polaridad',
-    yaxis_title='Subjetividad'
-)
-
-fig_sentiment_scatter.update_layout(
-    
-    height=600  # Altura del gráfico
+    yaxis_title='Subjetividad',
+    height=600
 )
 
 st.plotly_chart(fig_sentiment_scatter)
-            # Cambiar las etiquetas de 'Male' y 'Female' ????(si da tiempo)?????????????????????????????????????????????????????????????????????????????????????????????????
