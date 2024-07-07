@@ -90,7 +90,7 @@ def main():
 
     fig.update_layout(
         xaxis_title='',
-        yaxis_title=''        
+        yaxis_title=''
     )
 
     st.plotly_chart(fig)
@@ -98,11 +98,8 @@ def main():
     # Crear el gráfico de torta
     fig = px.pie(genre_count, values='Count', names='Genre', title='Porcentaje sobre el total de géneros', hole = 0.5)
 
-    # Añadir información adicional al pasar el ratón
-    # bottom_genres = ', '.join(bottom_values['genres'])
     fig.update_traces(
         hoverinfo='label+percent+value'
-        # hovertemplate='<b>Otros Géneros</b>: %{value} películas<br>(%{percent})<br>Géneros agrupados:<br>' + bottom_genres
     )
     fig.update_layout(
         width=1000,  # Ancho del gráfico
@@ -110,7 +107,6 @@ def main():
     )
     # Mostrar el gráfico en Streamlit
     st.plotly_chart(fig)
-
 
     ################ SLIDER POR AÑO ####################
 

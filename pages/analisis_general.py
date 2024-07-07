@@ -103,13 +103,6 @@ else:
         # Añadir información adicional al pasar el ratón
         fig_total_personajes.update_traces(hoverinfo='label+percent+value', textinfo='value+percent', textposition='inside')
         
-        # # Crear el gráfico de torta Media de personajes por sexo por película
-        # fig_media_personajes_pelicula = px.pie(values=[media_personajes_femenino, media_personajes_masculino], 
-        #                                        names=['Femenino', 'Masculino'], title='Media de personajes por sexo por película',
-        #                                     #    color = ['Femenino', 'Masculino'],
-        #                                        color_discrete_map = color_discrete_map, hole = 0.4)
-        # fig_media_personajes_pelicula.update_traces(hoverinfo='label+percent+value', textinfo='value+percent', textposition='inside')
-
         # Crear el gráfico de torta Total de palabras por sexo
         fig_total_palabras = px.pie(values=[total_palabras_femenino, total_palabras_masculino],
                                       names=['Femenino', 'Masculino'], title='Palabras por sexo', hole = 0.4,
@@ -148,7 +141,7 @@ else:
             st.metric(label="Media de personajes femeninos por película", value=media_personajes_femenino.astype(int))
             
 
-        st.subheader('Mas palabras para los hombres')
+        st.subheader('Más palabras para los hombres')
         st.markdown("""Analizamos los guiones cinematográficos para extraer dos datos clave: el total de palabras 
                     destinadas a los personajes masculinos y a los personajes femeninos. En la mayoría de los casos, 
                     los personajes masculinos tienen significativamente más palabras que los personajes femeninos. 
@@ -235,6 +228,9 @@ else:
         
 
         # ################ SCATTER CHART ####################
+        
+        st.subheader("Paridad vs Rating de las películas")
+
         st.write("""El gráfico a continuación explora la relación entre la paridad en los personajes 
                  de las películas y sus ratings. La paridad se refiere al equilibro entre personajes femeninos y masculinos.
                  Se calcula un ratio de personajes femeninos entre los masculinos, donde un valor de 1 equivaldría a que hay
@@ -243,6 +239,11 @@ else:
         st.write("""Se puede observar en este gráfico que la mayoría de películas tiene una paridad inferior a 1,
                  lo cual demuestra que hay un desequilibro entre sexos, habiendo incluso el doble de personajes
                  masculinos que femeninos en la gran mayoría de películas.""")
+        
+        
+        st.write("""Aunque no existe una correlación directa entre la paridad de género y el rating de una película, 
+                 ¿qué sugiere el siguiente gráfico? ¿Podemos ver películas con alta paridad y que tengan alto rating?
+                  ¿Será la paridad influyente en la popularidad y rating de las películas?""")
 
         sex_ratio = filtered_movies_years['Female Characters'] / filtered_movies_years['Male Characters']
 
@@ -250,15 +251,25 @@ else:
                                 x          = sex_ratio,
                                 y          = "Rating",
                                 color      = "Movie",  
-                                hover_name = "Movie",
-                                title      = "Paridad vs Rating de todas las películas")
+                                hover_name = "Movie")
+        
+        fig_scatter4.add_vline(x=1, line_width=2, line_color="#FFC000")
+
+
+        fig_scatter4.add_shape(type="line", x0=-0.2, y0=5,x1=3.5, y1=5, line=dict(color="#FFC000", width=2))
+
         fig_scatter4.update_layout(
             xaxis_title='Paridad',
             yaxis_title='Rating'
         )
+
+        fig_scatter4.update_layout(
+    
+            height=500  # Altura del gráfico
+        )
+
         st.plotly_chart(fig_scatter4)
        
-
 
         # ################ LINE CHART ####################
         # Data
