@@ -43,10 +43,7 @@ genres = set()
 for item in movies_df['Genres']:
     for genre in item:
         genres.add(genre)
-# genres_list = list()
-# all_genres = list(genres)
-# genres_list.append(all_genres)
-# genres_list.extend(genres)
+
 selected_genres = st.multiselect(label= "Selecciona uno o más géneros:", options = genres, default = genres)
 
 if len(selected_genres) == 0:
@@ -56,7 +53,7 @@ else:
     index_set = set()
     for selected_genre in selected_genres:
         for index, row in movies_df.iterrows():
-            if selected_genre in row['Genre']:
+            if selected_genre in row['Genres']:
                 index_set.add(index)
             else:
                 pass
