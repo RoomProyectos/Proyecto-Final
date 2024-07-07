@@ -34,7 +34,7 @@ st.subheader('Personajes por sexo y género')
 st.markdown("""Utilizamos técnicas de procesamiento del lenguaje natural (NLP) para analizar los guiones y extraer 
             datos relevantes sobre el número de palabras y personajes. Esta metodología nos permite obtener una visión 
             general de las dinámicas de género en la narrativa cinematográfica. Para poder explorar dichos datos, por favor, 
-            seleccione los géneros que le pueda interesar así como un rango temporal""")
+            seleccione los géneros que le pueda interesar así como un rango temporal.""")
 
 ############# MULTISELECT POR GÉNERO #################
 
@@ -75,7 +75,7 @@ else:
     if len(filtered_movies_years) == 0:
         st.error("No hay películas que mostrar. Por favor, añade más géneros o amplía el rango de años.", icon="🚨")
     else: 
-        st.write(f"Películas del año **{selected_year}** | Total de películas analizadas: **{len(filtered_movies_years)}**")
+        st.write(f"Películas entre el año **{min_year}** y el **{max_year}** | Total de películas analizadas: **{len(filtered_movies_years)}**")
                 
         # Calcular totales y medias
         total_personajes_femenino = filtered_movies_years['Female Characters'].sum().round(2)
@@ -92,7 +92,7 @@ else:
 
         # Crear el gráfico de torta Total de personajes por sexo
         fig_total_personajes = px.pie(values=[total_personajes_femenino, total_personajes_masculino],
-                                      names=['Femenino', 'Masculino'], title='Total de personajes por sexo', hole = 0.4,
+                                      names=['Femenino', 'Masculino'], title='Personajes por sexo', hole = 0.4,
                                       color_discrete_sequence=["#E7E6E6", "#FFC000"])
         # Añadir información adicional al pasar el ratón
         fig_total_personajes.update_traces(hoverinfo='label+percent+value', textinfo='value+percent', textposition='inside')
@@ -105,21 +105,21 @@ else:
 
         # Crear el gráfico de torta Total de palabras por sexo
         fig_total_palabras = px.pie(values=[total_palabras_femenino, total_palabras_masculino],
-                                      names=['Femenino', 'Masculino'], title='Total de palabras por sexo', hole = 0.4,
+                                      names=['Femenino', 'Masculino'], title='Palabras por sexo', hole = 0.4,
                                       color_discrete_sequence=["#E7E6E6", "#FFC000"])
         # Añadir información adicional al pasar el ratón
         fig_total_palabras.update_traces(hoverinfo='label+percent+value', textinfo='value+percent', textposition='inside')
         
         # Crear el gráfico de torta Media de palabras por sexo por película
         fig_media_palabras_pelicula = px.pie(values=[media_palabras_femenino, media_palabras_masculino], 
-                                               names=['Femenino', 'Masculino'], title='Media de palabras por sexo por película', 
+                                               names=['Femenino', 'Masculino'], title='Media de palabras por sexo y película', 
                                                color_discrete_sequence=["#E7E6E6", "#FFC000"], hole = 0.4)
         fig_media_palabras_pelicula.update_traces(hoverinfo='label+percent+value', textinfo='value+percent', textposition='inside')
 
 
         ############## IMPRIMIR LOS GRÁFICOS Y LAS 2 COLUMNAS ##################
 
-        st.subheader('Personajes')
+        st.subheader('Solo 1 de 4 personajes es mujer')
         st.markdown("""Analizamos la proporción de personajes masculinos y femeninos en una amplia gama de películas, 
                     cubriendo diferentes géneros y épocas. Este análisis nos permite identificar patrones 
                     y tendencias en la representación de género a lo largo del tiempo. Exploramos cómo varía la representación 
@@ -130,8 +130,8 @@ else:
         with col1:
             st.plotly_chart(fig_total_personajes)
         with col2:
-            st.write("**Independiente del género...**")
-            st.write("""Un patrón persistente en la industria cinematográfica: 
+            st.write("**Independientemente del género...**")
+            st.write("""...un patrón persistente en la industria cinematográfica: 
                      casi siempre hay más personajes masculinos que femeninos. Esta tendencia se observa 
                      tanto en géneros tradicionalmente dominados por hombres, como la acción y la ciencia ficción, como en géneros donde 
                      se esperaría una representación más equilibrada, como el drama y la comedia.""")
@@ -139,10 +139,13 @@ else:
             st.metric(label="Media de personajes femeninos por película", value=media_personajes_femenino.astype(int))
             
 
-        st.subheader('Palabras por sexo')
-        st.markdown("""Una obra audiovisual puede tener diferentes géneros. 
-        Si identificamos cada uno de los géneros dentro de cada película y 
-        lo agrupamos, tenemos lo siguientes datos:""")
+        st.subheader('Mas palabras para los hombres')
+        st.markdown("""Analizamos los guiones cinematográficos para extraer dos datos clave: el total de palabras 
+                    destinadas a los personajes masculinos y a los personajes femeninos. En la mayoría de los casos, 
+                    los personajes masculinos tienen significativamente más palabras que los personajes femeninos. 
+                    A pesar de que el total de palabras favorece a los personajes masculinos, observamos que la media de 
+                    palabras por personaje de cada sexo es más equilibrada. Sin embargo, esta aparente paridad en la media de 
+                    palabras se da porque hay muchos menos personajes femeninos en comparación con los masculinos.""")
         col3, col4 = st.columns(2)
         with col3:
             st.plotly_chart(fig_total_palabras)
@@ -163,25 +166,36 @@ else:
                 'Subjectivity': [media_subjetividad_femenino, media_subjetividad_masculino],
                 'Total Characters': [total_personajes_femenino, total_personajes_masculino]}
         
-        # Bubble Chart
+        st.subheader("Análisis de la polaridad vs subjectividad")
 
+        st.write("""Los gráficos a continuación nos ayuda a comprender cómo se expresan los 
+                 personajes masculinos y femeninos en términos de emociones y opiniones. La 
+                 polaridad mide el tono emocional del texto, desde negativo a positivo. Una 
+                 polaridad alta indica un tono más positivo, mientras que una polaridad baja 
+                 sugiere un tono más negativo. La subjetividad refleja el grado en que el texto 
+                 es personal y subjetivo, en lugar de objetivo y basado en hechos. Un valor 
+                 alto de subjetividad indica que el texto está cargado de opiniones personales.""")
+
+        # Bubble Chart
         fig_scatter1 = px.scatter(data_frame = bubble_data1,
                                 x          = "Polarity",
                                 y          = "Subjectivity",
                                 color      = "Gender",
+                                color_discrete_map = {'Masculino': '#E7E6E6', 'Femenino': '#FFC000'},
                                 size       = "Total Characters",
                                 title      = "Polaridad vs Subjectividad media por sexo")
         st.plotly_chart(fig_scatter1)
 
         
         # Bubble Chart sentimiento todas las películas(femenino)
-
         fig_scatter2 = px.scatter(data_frame = filtered_movies_years,
                                 x          = "Female Polarity",
                                 y          = "Female Subjectivity",
                                 size       = "Female Characters",
                                 hover_name = "Movie",
                                 title      = "Polaridad vs Subjectividad de todas las películas (Femenino)")
+        
+        fig_scatter2.update_traces(marker=dict(color = "#FFC000", line=dict(width=0.7, color='white')))
         st.plotly_chart(fig_scatter2)
 
         # Bubble Chart sentimiento todas las películas(masculino)
@@ -192,11 +206,16 @@ else:
                                 size       = "Male Characters",
                                 hover_name = "Movie",
                                 title      = "Polaridad vs Subjectividad de todas las películas (Masculino)")
+        
+        fig_scatter3.update_traces(marker=dict(color = "#E7E6E6", line=dict(width=0.5, color='black')))
         st.plotly_chart(fig_scatter3)
-
+        
 
         # ################ SCATTER CHART ####################
-
+        st.write("""El gráfico a continuación explora la relación entre la paridad de género en los personajes 
+                 de las películas y sus ratings. La paridad de género se refiere al equilibrio entre personajes 
+                 masculinos y femeninos en una película.""")
+        
         sex_ratio = filtered_movies_years['Female Characters'] / filtered_movies_years['Male Characters']
 
         fig_scatter4 = px.scatter(data_frame = filtered_movies_years,
@@ -223,9 +242,11 @@ else:
                             "Female Mean Word Count" : "Palabras Femeninas (Media)",
                             "Male Mean Word Count" : "Palabras Masculinas (Media)"}
 
+        st.subheader("Cómo ha cambiado el cine a lo largo de los años")
+
         selected_columns = st.multiselect(label = "Selecciona uno o más datos para mostrar:", 
                                           options = graph_options,
-                                          format_func=lambda x: func_dictionary[x])
+                                          format_func=lambda x: func_dictionary[x], help="Por favor elige una opción")
         
         graph_df_sorted = filtered_movies_years.groupby("Year", as_index = False).mean("Female Characters").sort_values(by='Year', ascending=True)
         graph_years = graph_df_sorted["Year"].values

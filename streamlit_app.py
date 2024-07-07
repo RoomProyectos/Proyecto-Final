@@ -14,10 +14,8 @@ from PIL import Image
 def main():    
     # Configuración de la página y pestaña
     st.set_page_config(page_title = "Cine y Ciencia de Datos",
-                    page_icon = ":panda_face:",
-                    # layout = "wide",                    
-                    # initial_sidebar_state = ""
-                    ) #optional
+                    page_icon = ":panda_face:"
+                    ) 
 
     ################# CARGA DE ESTILOS Y NAVEGACIÓN ###############
     with open("styles.css") as css_file:
@@ -31,26 +29,13 @@ def main():
     ################# CARGA DE ESTILOS Y NAVEGACIÓN ###############
     
     st.title("El guion cuenta una historia, los datos cuentan otra.", anchor=None)
-    
-    
-    # image = Image.open("Data/film.jpg")
-    # st.image(image = image)
-    
-    # st.markdown("""
-    # <h1 style='text-align:right; color:red'>
-    #     ... los datos cuentan otra.
-    # </h1>
-    # """, unsafe_allow_html=True)
-    # st.title("... los datos cuentan otra.", anchor=None)
 
     st.markdown("""En este espacio, te invitamos a explorar el fascinante mundo del análisis de datos aplicado a 
-    la industria cinematográfica. """, unsafe_allow_html=True)
+    la industria cinematográfica. Nuestro proyecto se centra en dos vertientes fundamentales:""", unsafe_allow_html=True)
     
-    st.markdown("""Nuestro proyecto se centra en dos vertientes fundamentales:""", unsafe_allow_html=True)
+    st.success(""" - Análisis de los metadatos de películas """)
     
-    st.markdown(""" - `Análisis de los metadatos de películas` """, unsafe_allow_html=True)
-    
-    st.markdown(""" - `Procesamiento del lenguaje natural (NLP) de sus guiones`""", unsafe_allow_html=True)
+    st.success(""" - Procesamiento del lenguaje natural (NLP) de sus guiones""")
     
     st.markdown("""A través de estas dos perspectivas, buscamos revelar las historias ocultas detrás de la narrativa y los números.
     """, unsafe_allow_html=True)
@@ -75,7 +60,7 @@ def main():
     
     st.markdown(f"""
     <h2>
-        El {top_genres_pct:.2f} % de las películas se encaja en 5 categorías
+        El {top_genres_pct:.2f} % de las películas encaja en 5 categorías
     </h2>
     """, unsafe_allow_html=True)
 
