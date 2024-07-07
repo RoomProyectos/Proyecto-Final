@@ -15,7 +15,7 @@ st.markdown(f"""<style>{css_content}</style>""", unsafe_allow_html=True)
 get_navigation()
 ################# CARGA DE ESTILOS Y NAVEGACIÓN ###############
 # Ruta del archivo
-file_path = 'Data/movies_final.pkl'
+file_path = 'Data/movies_final_aux.pkl'
 
 # Cargar y procesar el dataset
 movies_df = pd.read_pickle(file_path)
@@ -40,7 +40,7 @@ st.markdown("""Utilizamos técnicas de procesamiento del lenguaje natural (NLP) 
 
 #obtención de la lista de géneros
 genres = set()
-for item in movies_df['Genres']:
+for item in movies_df['Genre']:
     for genre in item:
         genres.add(genre)
 
@@ -53,7 +53,7 @@ else:
     index_set = set()
     for selected_genre in selected_genres:
         for index, row in movies_df.iterrows():
-            if selected_genre in row['Genres']:
+            if selected_genre in row['Genre']:
                 index_set.add(index)
             else:
                 pass
