@@ -198,7 +198,7 @@ else:
         st.plotly_chart(fig_scatter1)
         
         st.write("""En general, podemos observar que los diálogos de las mujeres son más positivos y emocionales,
-                 mientras que el de los hombres tiene a ser más neutro. """)
+                 mientras que el de los hombres tiende a ser más neutro. """)
 
         # Bubble Chart sentimiento todas las películas(femenino)
         fig_scatter2 = px.scatter(data_frame = filtered_movies_years,
