@@ -137,7 +137,7 @@ def main():
             # Crear el slider para seleccionar el año
             selected_year = st.slider('Selecciona el año', min_year, max_year, [1995, 2001])            
             # Filtrar las películas del año seleccionado            
-            filtered_movies = df[df['Year'].between(selected_year[0],selected_year[1])].drop(["Merged Dialogues", "Dialogues", "IMDB ID", "Cast and Characters"], axis=1)
+            filtered_movies = df[df['Year'].between(selected_year[0],selected_year[1])].drop(["Merged Dialogues", "IMDB ID", "Cast and Characters"], axis=1)
             
             # Mostrar el DataFrame filtrado
             st.write(f"Películas del año {selected_year}:")
