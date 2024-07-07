@@ -40,7 +40,7 @@ st.markdown("""Utilizamos técnicas de procesamiento del lenguaje natural (NLP) 
 
 #obtención de la lista de géneros
 genres = set()
-for item in movies_df['Genre']:
+for item in movies_df['Genres']:
     for genre in item:
         genres.add(genre)
 # genres_list = list()
