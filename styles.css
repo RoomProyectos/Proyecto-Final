@@ -8,10 +8,16 @@ body p{
     font-family: "Open Sans", sans-serif;    
 }
 
-.block-container{        
+@media (min-width: 1100px){
+.block-container{
     max-width:70%;
+}
+}
+
+.block-container{
     padding: 1rem 1rem 10rem;    
 }
+
 
 /* Estilo del encabezado */
 .stApp header {
